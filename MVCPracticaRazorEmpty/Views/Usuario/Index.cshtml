@@ -1,0 +1,127 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    IEnumerable<string> strList = new List<string> { "POO", "TW", "MT3", "FS1" };
+}
+<h1>Formulario de Usuarios</h1>
+<div class="container">
+    <form asp-action="Agregar">
+        <div class="form-group row m-4">
+            <div class="col-sm-4">
+                <h3>Nombre Usuario</h3>
+            </div>
+            <div class="col-sm-8">
+                @Html.TextBox("nombre","", new{@class="form-control"})
+            </div>
+        </div>
+        <div class="form-group row m-4">
+            <div class="col-sm-4">
+                <h3>Contraseña</h3>
+            </div>
+            <div class="col-sm-8">
+                @Html.Password("pass", "", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group row m-4">
+            <div class="col-sm-4">
+                <h3>Genero</h3>
+            </div>
+            <div class="col-sm-8">
+                @Html.RadioButton("genero", "M", true, new { @class = ""})
+                <h3 class="d-inline">
+                    Masculino
+                </h3>
+                @Html.RadioButton("genero", "F", false, new { @class = ""})
+                <h3 class="d-inline">
+                Femenino
+                </h3>
+            </div>
+        </div>
+        <div class="form-group row m-4">
+            <div class="col-sm-4">
+                <h3>Dirección</h3>
+            </div>
+            <div class="col-sm-8">
+                @Html.TextArea("direccion", "", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group row m-4">
+            <div class="col-sm-4">
+                <h3>Pasatiempos</h3>
+            </div>
+            <div class="col-sm-8">
+                @Html.CheckBox("Bailar")
+                <h4 class="d-inline">
+                    Bailar
+                </h4>
+                @Html.CheckBox("Correr")
+                <h4 class="d-inline">
+                    Correr
+                </h4>
+                @Html.CheckBox("Escalar")
+                <h4 class="d-inline">
+                    Escalar
+                </h4>
+                @Html.CheckBox("Películas")
+                <h4 class="d-inline">
+                    Películas
+                </h4>
+            </div>
+        </div>
+        <div class="form-group row m-4">
+            <div class="col-sm-4">
+                <h3>Curso</h3>
+            </div>
+            <div class="col-sm-8">
+                @Html.DropDownList("curso", new SelectList(strList,
+                         strList.FirstOrDefault()), "--Seleccionar curso ----", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group row m-4">
+            <div class="col-sm-4">
+                <h3>Conocimientos</h3>
+            </div>
+            <div class="col-sm-8">
+                @Html.ListBox("Seleccionar Habilidades", new List<SelectListItem>{
+                    new SelectListItem {Text = "C#", Value="C#"},
+                    new SelectListItem {Text = "ASP.NET", Value="ASP.NET"},
+                    new SelectListItem {Text = "ASP.NET Core", Value="ASP.NET Core"},
+                    new SelectListItem {Text = "Azure", Value="Azure"},
+                }, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group row m-4">
+            <div class="col-sm-2">
+                
+            </div>
+            <div class="col-sm-8">
+               <input type="submit" class="btn btn-success rounded-pill w-100" value="Guardar" />
+            </div>
+        </div>
+    </form>
+    <hr />
+    <h1> Usuarios</h1>
+    <hr />
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Género</th>
+                <th>Dirección</th>
+                <th>Curso</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var usu in (IEnumerable<dynamic>)ViewData["listaUsu"])
+            {
+                <tr>
+                    <td>@usu.nombre</td>
+                    <td>@usu.genero</td>
+                    <td>@usu.direccion</td>
+                    <td>@usu.curso</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
